@@ -1,0 +1,31 @@
+#panel-image-popup {
+  position: relative;
+  top: var(--header-height);
+  left: 0;
+  width: calc(50vw - 2px);
+  height: calc(50vw + var(--search-height));
+  border: 1px solid black;
+  background: var(--color-background);
+}
+
+#panel-image-popup > button {
+  position: absolute;
+  font-size: 1.3em;
+  cursor: pointer;
+  border-radius: 50%;
+  display:block;
+  border: 1px solid black;
+  width: 1.6em;
+  height: 1.6em;
+  top: 12px;
+  right: 12px;
+}
+
+#panel-image-popup > button:hover {
+  background-color: grey;
+  cursor: pointer;
+}
+
+.hidden {
+  visibility: hidden;
+}

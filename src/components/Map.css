@@ -1,0 +1,34 @@
+#panel-map {
+  position: absolute;
+  top: var(--header-height);
+  left: 0;
+  width: calc(50vw - 2px);
+  height: calc(35vw);
+  border: 1px solid black;
+}
+
+#panel-map > svg {
+  width: 100%;
+  height: 100%;
+}
+
+#map {
+  border: 0px black solid;
+  background-color: #CEDCE7;
+}
+
+#region path:hover {
+  fill: #d7992155;
+  cursor: pointer;
+}
+
+#region-text {
+  font-size: 1.5px; 
+}
+
+#panel-timeline-button {
+  position: absolute;
+  font-size: 0.7em;
+  top: 4px;
+  left: 4px;
+}

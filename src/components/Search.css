@@ -1,0 +1,30 @@
+#panel-image-header {
+  position: absolute;
+  top: calc(var(--header-height));
+  left: 50vw;
+  width: calc(50vw - 2px);
+  height: var(--search-height);
+  border-top: 1px solid black;
+}
+
+#image-header {
+  line-height: var(--search-height);
+  padding-left: 20px;
+  font-weight: bold;
+}
+
+#image-header > .button-group {
+  position: relative;
+  left: 50px;
+}
+
+.button-group > button {
+  margin: 4px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.button-group > button:disabled {
+  color: #aaa;
+  cursor: default;
+}

@@ -1,0 +1,53 @@
+/***************************************************************************/
+/****** main variables *********/
+
+:root {
+  --header-height: 40px;
+  --search-height: 60px;
+  --timeline-height: 175px;
+  --color-logo: goldenrod;
+  --color-logo-text: midnightblue;
+  --color-background: #a89e82;
+}
+
+/***************************************************************************/
+/****** top-level styles for application *********/
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-background);
+}
+
+#header {
+  background-color: var(--color-logo);
+  color: var(--color-logo-text);
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: var(--header-height);
+  line-height: var(--header-height);
+  user-select: none;
+}
+
+#title {
+  font-size: 1.3em;
+  font-weight: bold;
+  float: left;
+  padding-left: 15px;
+}
+
+.lang-group {
+  cursor: pointer;
+  float: right;
+  padding-right: 12px;
+}
+
+/***************************************************************************/
+/****** Interactivity => 850px *********/
+
+@media only screen and (max-width: 850px) {
+
+
+
+}

@@ -1,0 +1,29 @@
+#panel-image {
+  position: absolute;
+  top: calc(var(--header-height) + var(--search-height));
+  left: 50vw;
+  width: calc(50vw - 2px);
+  height: 50vw;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.image-container {
+  box-sizing: border-box; 
+  margin: 4px;
+  height: calc(10vw - 9px);
+  width: calc(10vw - 9px);
+  text-align: center;
+  background: midnightblue;
+}
+
+.image-container > .image:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.image-container > .image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
