@@ -1,22 +1,16 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 import "./Timeline.css";
 
 
-class Timeline extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
-
-  render() {
-    return(
-      <div>
-      </div>
-    );
-  }
+function Timeline(props) {
+  console.log(props);
+  return(<div></div>);
 }
+
+Timeline.propTypes = {
+
+};
 
 export default Timeline;

@@ -8,9 +8,9 @@ function App() {
   return (
     <div>
       <div id="header">
-        <span id="title">UKRAINE PHOTO WARCHIVE</span>
+        <span id="title">UKRAINIAN WARCHIVE</span>
         <div className="lang-group">
-          <span style={{color: "midnightblue", fontSize: "1.2em"}}><b>[en]</b> - uk</span>
+          <span><b>[en]</b> &#8729; uk</span>
         </div>
       </div>
 

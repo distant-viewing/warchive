@@ -1,13 +1,14 @@
 /***************************************************************************/
-/****** main variables *********/
+/****** main variables *********/ 
 
 :root {
   --header-height: 40px;
   --search-height: 60px;
   --timeline-height: 175px;
-  --color-logo: goldenrod;
-  --color-logo-text: midnightblue;
-  --color-background: #a89e82;
+  --color-logo: #232322;
+  --color-logo-text: #e9e7db;
+  --color-background: #e9e7db;
+  --color-accent: #e0b200;
 }
 
 /***************************************************************************/

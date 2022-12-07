@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { getFillColor, getSizes } from "../helpers.ts";
 
 import "./Map.css";
 
@@ -7,10 +8,7 @@ function Map(props) {
   
   const geo = props.geo[props.geoKey];
   const gi = props.geoId;
-  const geoFill = props.geoFill;
-
   const trans = gi >= 0 ? geo.geo[gi].transform : geo.transform;
-  if (gi >= 0) { geoFill[gi] = "#d79921"; }
 
   const country = props.geo["countries"].geo.map( (val, i) => {
     return (
@@ -18,19 +16,48 @@ function Map(props) {
     );
   });
 
-  const regions = geo.geo.map( (val, i) => {
-    return (
-      <path
-        d={val.path}
-        key={i}
-        fill={ props.geoFill[i] }
-        onClick={() => {
-          props.modifyFilter(props.geoKey, gi === i ? null : [i + 1]);
-          props.modifyState("geoId", gi === i ? -1 : i);
-        }}
-      />
-    );
-  });
+
+  let regions = null;
+
+  if (geo.type === "polygon")
+  {
+    const geoFill = getFillColor(props.geoCounts);    
+
+    regions = geo.geo.map( (val, i) => {
+      return (
+        <path
+          d={val.path}
+          key={i}
+          fill={ geoFill[i] }
+          onClick={() => {
+            props.modifyFilter(props.geoKey, gi === i ? null : [i + 1]);
+            props.modifyState("geoId", gi === i ? -1 : i);
+          }}
+        />
+      );
+    });
+  }
+  if (geo.type === "point")
+  {
+    const geoSize = getSizes(props.geoCounts);    
+
+    regions = geo.geo.map( (val, i) => {
+      return (
+        <circle
+          key={i}
+          cx={val.x}
+          cy={val.y}
+          r={ geoSize[i] }
+          stroke="black"
+          strokeWidth="1"
+          fill="#61747555"
+          onClick={() => {
+            props.modifyFilter(props.geoKey, gi === i ? null : [i + 1]);
+            props.modifyState("geoId", gi === i ? -1 : i);
+          }}/>
+      );
+    });
+  }
 
   return(
     <div id="panel-map">
@@ -61,6 +88,7 @@ function Map(props) {
                 props.modifyState("geoId", -1);
                 props.modifyFilter("a", null);
                 props.modifyFilter("b", null);
+                props.modifyFilter("c", null);
               }}>
               OBLASTS
             </button>
@@ -71,8 +99,20 @@ function Map(props) {
                 props.modifyState("geoId", -1);
                 props.modifyFilter("a", null);
                 props.modifyFilter("b", null);
+                props.modifyFilter("c", null);
               }}>
               RAIONS
+            </button>
+            <button
+              id="-1"
+              onClick={() => {
+                props.modifyState("geoKey", "c");
+                props.modifyState("geoId", -1);
+                props.modifyFilter("a", null);
+                props.modifyFilter("b", null);
+                props.modifyFilter("c", null);
+              }}>
+              CITIES
             </button>
           </span>
         </span>
@@ -85,7 +125,7 @@ Map.propTypes = {
   geo: PropTypes.object.isRequired,
   geoId: PropTypes.number.isRequired,
   geoKey: PropTypes.string.isRequired,
-  geoFill: PropTypes.array.isRequired,
+  geoCounts: PropTypes.array.isRequired,
   modifyState: PropTypes.func.isRequired,
   modifyFilter: PropTypes.func.isRequired
 };

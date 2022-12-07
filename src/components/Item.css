@@ -26,6 +26,13 @@
   cursor: pointer;
 }
 
+.large-image {
+  max-width: 100%;
+  max-height: 500px;
+  display: block;
+  margin: auto;
+}
+
 .hidden {
   visibility: hidden;
 }

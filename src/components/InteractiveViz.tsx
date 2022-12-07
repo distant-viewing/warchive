@@ -1,5 +1,5 @@
 import React from "react";
-import { countItems, filterItems, getFillColor } from "../helpers.ts";
+import { countItems, filterItems } from "../helpers.ts";
 
 import Item     from "./Item.tsx";
 import Map      from "./Map.tsx";
@@ -68,16 +68,15 @@ class InteractiveViz extends React.Component {
 
     const items = filterItems(this.state.items, this.state.filters);
     const itemId = this.state.itemId;
-    const counts = countItems(items, this.state.schema);
-    const geoFill = getFillColor(counts[this.state.geoKey]);
-
+    const counts = countItems(items, this.state.schema, this.state.geoKey);
+    
     return(
       <div id="interactive-viz">
         <Map
           geo={ this.state.geo }
           geoId={ this.state.geoId }
           geoKey={ this.state.geoKey }
-          geoFill= { geoFill }
+          geoCounts= { counts }
           modifyState={ this.modifyState.bind(this) }
           modifyFilter={ this.modifyFilter.bind(this) }
         />

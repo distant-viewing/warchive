@@ -19,8 +19,7 @@ function Item(props) {
       <div>
         <img
           src={"img/med/" + props.itemData.filename}
-          className="image"
-          style={{maxHeight: "500px", display: "block", margin: "auto"}}
+          className="large-image"
         />
         <div style={{padding: "12px"}}>
           <ul style={{listStyleType: "none"}}>

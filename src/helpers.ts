@@ -41,6 +41,17 @@ export function getGradColor(start_color: string, end_color: string, percent: nu
 }
 
 
+export function getSizes(counts: array) {
+  let max_val = Math.max(...Object.values(counts));
+  max_val = max_val === 0 ? 1 : max_val;
+
+  const geoSize = counts.slice(1, counts.length).map((val) => {
+    return (2 * (1 + 25 * val / max_val)) ;
+  });
+
+  return(geoSize);
+}
+
 export function getFillColor(counts: array) {
   let max_val = Math.max(...Object.values(counts));
   max_val = max_val === 0 ? 1 : max_val;
@@ -53,22 +64,16 @@ export function getFillColor(counts: array) {
 }
 
 
-export function countItems(items: Record<string, unknown>, schema: Record<string, unknown>) {
+export function countItems(items: Record<string, unknown>, schema: Record<string, unknown>, key: string) {
 
-  const keys = Object.keys(schema);
-  const counts = {};
-  for (let j = 0; j < keys.length; j++)
+  const counts = new Array(schema[key]["values"].length);
+  for (let i = 0; i < counts.length; i++)
   {
-    counts[keys[j]] = new Array(schema[keys[j]]["values"].length);
-
-    for (let i = 0; i < counts[keys[j]].length; i++)
-    {
-      counts[keys[j]][i] = 0;
-    }
-    for (let i = 0; i < items.length; i++)
-    {
-      counts[keys[j]][items[i][keys[j]]] += 1;
-    }
+    counts[i] = 0;
+  }
+  for (let i = 0; i < items.length; i++)
+  {
+    counts[items[i][key]] += 1;
   }
 
   return(counts);

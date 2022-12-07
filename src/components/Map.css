@@ -22,6 +22,11 @@
   cursor: pointer;
 }
 
+#region circle:hover {
+  fill: #d7992155;
+  cursor: pointer;
+}
+
 #region-text {
   font-size: 1.5px; 
 }
