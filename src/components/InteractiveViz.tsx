@@ -1,5 +1,5 @@
 import React from "react";
-import { countItems, filterItems } from "../helpers.ts";
+import { countItems, countItems2, filterItems, shuffleArray } from "../helpers.ts";
 
 import Item     from "./Item.tsx";
 import Map      from "./Map.tsx";
@@ -23,20 +23,24 @@ class InteractiveViz extends React.Component {
       resultIndex: 0,
       itemId: -1,
       geoId: -1,
-      geoKey: "a"
+      geoKey: "a",
+      tagId: -1
     };
   }
 
-  loadJSON(path: string, kn: string) {
+  loadJSON(path: string, kn: string, shuffle: bool) {
     fetch(path).then(r => { return r.json(); }).then(
-      r => { this.setState({ [kn]: r }); }
+      r => {
+        if (shuffle) { r = shuffleArray(r); }
+        this.setState({ [kn]: r });
+      }
     );
   }
 
   componentDidMount() {
-    this.loadJSON("./data/geo.json", "geo");
-    this.loadJSON("./data/items.json", "items");
-    this.loadJSON("./data/schema.json", "schema");
+    this.loadJSON("./data/geo.json", "geo", false);
+    this.loadJSON("./data/items.json", "items", true);
+    this.loadJSON("./data/schema.json", "schema", false);
   }
 
   modifyState(key: string, val: unknown) {
@@ -57,7 +61,7 @@ class InteractiveViz extends React.Component {
   modifyFilter(key: string, value: Array) {
     const filters = this.state.filters;
     if (value == null) { delete filters[key]; } else { filters[key] = value; }
-    this.setState({ filters: filters });
+    this.setState({ filters: filters, resultIndex: 0, itemId: -1 });
   }
 
   render() {
@@ -69,7 +73,8 @@ class InteractiveViz extends React.Component {
     const items = filterItems(this.state.items, this.state.filters);
     const itemId = this.state.itemId;
     const counts = countItems(items, this.state.schema, this.state.geoKey);
-    
+    const count2 = countItems2(items, this.state.schema, "d", "f");
+
     return(
       <div id="interactive-viz">
         <Map
@@ -81,11 +86,22 @@ class InteractiveViz extends React.Component {
           modifyFilter={ this.modifyFilter.bind(this) }
         />
         <Timeline
+          schema= { this.state.schema }
+          tagId={ this.state.tagId }
+          tlColKey={ "d" }
+          tlRowKey={ "f" }
+          tlCounts= { count2 }
+          modifyState={ this.modifyState.bind(this) }
+          modifyFilter={ this.modifyFilter.bind(this) }
         />
         <Search
           items={ items }
+          schema= { this.state.schema }
+          tagKey={ "f" }
+          creatorKey={ "e" }
           resultIndex={ this.state.resultIndex }
           modifyState={ this.modifyState.bind(this) }
+          modifyFilter={ this.modifyFilter.bind(this) }
         />
         <Results
           items={ items }

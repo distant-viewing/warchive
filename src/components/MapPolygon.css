@@ -1,0 +1,26 @@
+#region .polygon-container:hover path {
+  fill: #d7992155;
+  cursor: pointer;
+}
+
+#region circle:hover {
+  fill: #d7992155;
+  cursor: pointer;
+}
+
+.polygon-container path {
+  stroke: "#bbb";
+  stroke-width: 0.5;
+}
+
+.polygon-container .polygon-label {
+  font-size: 12;
+  text-anchor: middle;
+  stroke-width: 0;
+  cursor: pointer;
+  display: none; 
+}
+
+.polygon-container:hover .polygon-label {
+  display: block; 
+}

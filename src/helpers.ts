@@ -56,8 +56,8 @@ export function getFillColor(counts: array) {
   let max_val = Math.max(...Object.values(counts));
   max_val = max_val === 0 ? 1 : max_val;
 
-  const geoFill = counts.slice(1, counts.length).map((val) => {
-    return (getGradColor("#ecf2f3", "#617475", val / max_val) );
+  const geoFill = counts.map((val) => {
+    return (getGradColor("#fff5cc", "#e0b200", val / max_val) );
   });
 
   return(geoFill);
@@ -79,6 +79,48 @@ export function countItems(items: Record<string, unknown>, schema: Record<string
   return(counts);
 }
 
+
+export function countItems2(
+  items: Record<string, unknown>,
+  schema: Record<string, unknown>,
+  key1: string,
+  key2: string
+) {
+
+  const nrow = schema[key1]["values"].length;
+  const ncol = schema[key2]["values"].length;
+  const counts = new Array(nrow * ncol);
+
+  for (let i = 0; i < counts.length; i++)
+  {
+    counts[i] = 0;
+  }
+  for (let i = 0; i < items.length; i++)
+  {
+    counts[items[i][key1] + items[i][key2] * nrow] += 1;
+  }
+
+  return(counts);
+}
+
+
+export function shuffleArray(array: array) {
+  let currentIndex = array.length,  randomIndex;
+
+  // While there remain elements to shuffle.
+  while (currentIndex != 0) {
+
+    // Pick a remaining element.
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+
+  return array;
+}
 
 export function filterItems(items: Record<string, unknown>, filters: Record<string, unknown>) {
   const keys = Object.keys(filters);

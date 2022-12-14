@@ -1,0 +1,17 @@
+.circle-container circle {
+  stroke: black;
+  stroke-width: 1;
+  fill: #e0b20055;
+}
+
+.circle-container .circle-label {
+  font-size: 12;
+  text-anchor: middle;
+  stroke-width: 0;
+  cursor: pointer;
+  display: none;  
+}
+
+.circle-container:hover .circle-label {
+  display: block; 
+}

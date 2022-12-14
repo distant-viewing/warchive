@@ -17,23 +17,19 @@
   background-color: #CEDCE7;
 }
 
-#region path:hover {
-  fill: #d7992155;
-  cursor: pointer;
-}
-
-#region circle:hover {
-  fill: #d7992155;
-  cursor: pointer;
-}
-
-#region-text {
-  font-size: 1.5px; 
-}
-
-#panel-timeline-button {
+#panel-map-button {
   position: absolute;
   font-size: 0.7em;
   top: 4px;
   left: 4px;
+}
+
+#country {
+  stroke: black;
+  fill: #ece6d7;
+  strokeWidth: 0.1;
+}
+
+#map-group {
+  transition: 1s ease-in-out;
 }

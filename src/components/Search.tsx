@@ -1,4 +1,5 @@
 import React from "react";
+import Select from "react-select";
 import PropTypes from "prop-types";
 
 import "./Search.css";
@@ -15,8 +16,34 @@ function Search(props) {
     image_header = `Results ${num_start}-${num_end} of ${props.items.length}`;
   }
 
+  const tag = props.schema[props.tagKey].values;
+  const creator = props.schema[props.creatorKey].values;
+
+  const tagOptions = tag.slice(1).map( (val, i) => {
+    return({"value": i, "label": val});
+  });
+  const creatorOptions = creator.slice(1).map( (val, i) => {
+    return({"value": i, "label": val});
+  });
+
   return(
     <div id="panel-image-header">
+      <Select
+        options={ creatorOptions }
+        className="react-select-container react-select-container-creator"
+        classNamePrefix="react-select"
+        isClearable={ true }
+        placeholder="Select Creator"
+        onChange={(e) => props.modifyFilter(props.creatorKey, e ? [e.value] : null)}
+      />
+      <Select
+        options={ tagOptions }
+        className="react-select-container react-select-container-tag"
+        classNamePrefix="react-select"
+        isClearable={ true }
+        placeholder="Select Tag"
+        onChange={(e) => props.modifyFilter(props.tagKey, e ? [e.value] : null)}
+      />
       <span id="image-header">
         { image_header }
         <span className='button-group'>
@@ -41,9 +68,13 @@ function Search(props) {
 }
 
 Search.propTypes = {
+  items: PropTypes.array.isRequired,
+  schema: PropTypes.object.isRequired,
+  tagKey: PropTypes.string.isRequired,
+  creatorKey: PropTypes.string.isRequired,
   resultIndex: PropTypes.number.isRequired,
   modifyState: PropTypes.func.isRequired,
-  items: PropTypes.array.isRequired
+  modifyFilter: PropTypes.func.isRequired
 };
 
 export default Search;

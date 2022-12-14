@@ -1,8 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { getFillColor, getSizes } from "../helpers.ts";
+
+import MapPolygon from "./MapPolygon.tsx";
+import MapCircle from "./MapCircle.tsx";
 
 import "./Map.css";
+
 
 function Map(props) {
   
@@ -12,51 +15,37 @@ function Map(props) {
 
   const country = props.geo["countries"].geo.map( (val, i) => {
     return (
-      <path d={val.path} key={i} />
+      <path d={val.path} key={i} fill={val.fill} />
     );
   });
-
 
   let regions = null;
 
   if (geo.type === "polygon")
   {
-    const geoFill = getFillColor(props.geoCounts);    
-
-    regions = geo.geo.map( (val, i) => {
-      return (
-        <path
-          d={val.path}
-          key={i}
-          fill={ geoFill[i] }
-          onClick={() => {
-            props.modifyFilter(props.geoKey, gi === i ? null : [i + 1]);
-            props.modifyState("geoId", gi === i ? -1 : i);
-          }}
-        />
-      );
-    });
+    regions = (
+      <MapPolygon
+        geo={ geo }
+        geoId={ props.geoId }
+        geoKey={ props.geoKey }
+        geoCounts={ props.geoCounts }
+        modifyFilter={ props.modifyFilter }
+        modifyState={ props.modifyState }        
+      />
+    );
   }
   if (geo.type === "point")
   {
-    const geoSize = getSizes(props.geoCounts);    
-
-    regions = geo.geo.map( (val, i) => {
-      return (
-        <circle
-          key={i}
-          cx={val.x}
-          cy={val.y}
-          r={ geoSize[i] }
-          stroke="black"
-          strokeWidth="1"
-          fill="#61747555"
-          onClick={() => {
-            props.modifyFilter(props.geoKey, gi === i ? null : [i + 1]);
-            props.modifyState("geoId", gi === i ? -1 : i);
-          }}/>
-      );
-    });
+    regions = (
+      <MapCircle
+        geo={ geo }
+        geoId={ props.geoId }
+        geoKey={ props.geoKey }
+        geoCounts={ props.geoCounts }
+        modifyFilter={ props.modifyFilter }
+        modifyState={ props.modifyState }        
+      />
+    );
   }
 
   return(
@@ -69,8 +58,9 @@ function Map(props) {
         <g
           stroke="#bbb"
           strokeWidth="0.5"
-          style={{transform: trans, transition: "1s ease-in-out"}}>
-          <g stroke="black" fill="#ece6d7" strokeWidth="0.1" id="country">
+          id="map-group"
+          style={{transform: trans}}>
+          <g id="country">
             { country }
           </g>
           <g id="region">
@@ -78,7 +68,7 @@ function Map(props) {
           </g>
         </g>
       </svg>
-      <div id="panel-timeline-button">
+      <div id="panel-map-button">
         <span>
           <span className='button-group'>
             <button
