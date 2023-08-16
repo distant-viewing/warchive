@@ -21,12 +21,12 @@ function MapPolygon(props) {
           d={val.path}
           fill={ geoFill[i + 1] }
         />
-        <text
+        {/*        <text
           className="polygon-label"
           x={ val.cx }
           y={ val.cy }
-        >{ val.name }
-        </text>
+        >{ props.lang === "en" ? val.name : val.name_ua }
+        </text>*/}
         <use href="#one" />
       </g>
     );
@@ -41,7 +41,8 @@ MapPolygon.propTypes = {
   geoKey: PropTypes.string.isRequired,
   geoCounts: PropTypes.array.isRequired,
   modifyState: PropTypes.func.isRequired,
-  modifyFilter: PropTypes.func.isRequired
+  modifyFilter: PropTypes.func.isRequired,
+  lang: PropTypes.string.isRequired
 };
 
 export default MapPolygon;

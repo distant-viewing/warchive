@@ -11,7 +11,7 @@ function Item(props) {
   }
 
   return(
-    <div id="panel-image-popup">
+    <div id="panel-item">
       <button
         id="-1"
         onClick={() => { props.modifyItem(null); }}
@@ -21,14 +21,15 @@ function Item(props) {
           src={"img/med/" + props.itemData.filename}
           className="large-image"
         />
-        <div style={{padding: "12px"}}>
-          <ul style={{listStyleType: "none"}}>
+        <div className="item-text">
+          <p>
             {
-              Object.entries(props.itemData).map(([k,v]) => {
-                return(<li key={k}><b>{k}:</b> {v}</li>);
-              })
+              props.itemData.caption
             }
-          </ul>
+          </p>
+          <p style={{paddingTop: "24px", paddingLeft: "24px", paddingRight: "24px"}}>
+            <b>{ props.itemData.creator }</b>, { props.itemData.date }, { props.itemData.location }
+          </p>
         </div>
       </div>
     </div>
@@ -37,7 +38,8 @@ function Item(props) {
 
 Item.propTypes = {
   modifyItem: PropTypes.func.isRequired,
-  itemData: PropTypes.object
+  itemData: PropTypes.object,
+  lang: PropTypes.string.isRequired
 };
 
 export default Item;

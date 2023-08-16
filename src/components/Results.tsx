@@ -7,7 +7,7 @@ import "./Results.css";
 function Results(props) {
 
   const images = props.items.slice(
-    props.resultIndex, props.resultIndex + 25
+    props.resultIndex, props.resultIndex + 20
   ).map( (val, i) => {
     return (
       <div
@@ -24,8 +24,10 @@ function Results(props) {
   });
 
   return(
-    <div id="panel-image">
-      { images }
+    <div id="panel-results">
+      <div id="panel-results-flex">
+        { images }
+      </div>
     </div>
   );
 }

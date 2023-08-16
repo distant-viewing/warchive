@@ -27,7 +27,7 @@ function MapCircle(props) {
           className="circle-label"
           x={ val.x }
           y={ val.y }
-        >{ val.name }
+        >{ props.lang === "en" ? val.name : val.name_ua }
         </text>
       </g>
     );
@@ -42,7 +42,8 @@ MapCircle.propTypes = {
   geoKey: PropTypes.string.isRequired,
   geoCounts: PropTypes.array.isRequired,
   modifyState: PropTypes.func.isRequired,
-  modifyFilter: PropTypes.func.isRequired
+  modifyFilter: PropTypes.func.isRequired,
+  lang: PropTypes.string.isRequired
 };
 
 export default MapCircle;

@@ -1,0 +1,32 @@
+#region .polygon-container-click:hover path {
+  fill: #d7992155;
+  fill-opacity: 50%;
+  cursor: pointer;
+}
+
+#region circle:hover {
+  fill: #d7992155;
+  cursor: pointer;
+}
+
+.polygon-container-click path {
+  stroke: "#bbb";
+  stroke-width: 2;
+}
+
+.polygon-container-click:hover path {
+  stroke: "red";
+  stroke-width: 5;
+}
+
+.polygon-container-click .polygon-label {
+  font-size: 12;
+  text-anchor: middle;
+  stroke-width: 0;
+  cursor: pointer;
+  display: none; 
+}
+
+.polygon-container-click:hover .polygon-label {
+  display: block; 
+}

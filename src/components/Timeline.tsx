@@ -1,100 +1,61 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Slider from "rc-slider";
 import { getFillColor } from "../helpers.ts";
 
+import "rc-slider/assets/index.css";
 import "./Timeline.css";
 
+const intrange = function(a,b,c,d) { d=[]; c=b-a+1; while(c--){ d[c]=b--; } return d;};
 
 function Timeline(props) {
 
   const tlFill = getFillColor(props.tlCounts);
-  const key1 = props.tlColKey;
-  const key2 = props.tlRowKey;
+  const tk = props.timeKey;
   const schema = props.schema;
 
-  const ncol = schema[key1]["values"].length;
-  const nrow = schema[key2]["values"].length;
-
-  const boxes = schema[key2]["values"].map( (val, i) => {
-    const row = schema[key1]["values"].map( (val2, j) => {
-      if (props.tlCounts[i * ncol + j] === 0) return(null);
-
-      return(
-        <rect
-          key={ j }
-          x={ 8 + (j / ncol) * 39 }
-          y={ 1 + (i / nrow) * 13 }
-          width={ (1 / ncol) * 42 }
-          height={ (1 / nrow) * 13 }
-          fill={ tlFill[i * ncol + j] }
-        />
-      );
-    });
+  const boxes = schema[tk]["values"].map( (val, i) => {
+    const fcolor = tlFill[i];
+    const fopacity = (fcolor === "#fff") ? "0%" : "100%" ;
+    const swidth = (fcolor === "#fff") ? 0 : 0.01 ;
 
     return(
-      <g
-        key={i}
-        className="panel-timeline-row"
-        onClick={() => {
-          props.modifyFilter(key2, props.tagId === i ? null : [i]);
-          props.modifyState("tagId", props.tagId === i ? -1 : i);
-        }}
-      >
-        { row }
-      </g>
-    );
-  });
-
-  const xlabs = schema[key1]["labels"].map( (val, i) => {
-    return(
-      <text
+      <rect
         key={ i }
-        x={ 8 + (i / ncol) * 39 }
-        y={ 15.5 }
-        textAnchor="middle"
-        fontSize={ 0.8 }
-      > {val}
-      </text>
-    );
-  });
-
-  const ylabs = schema[key2]["values"].map( (val, i) => {
-    return(
-      <text
-        key={ i }
-        x={ 8 }
-        y={ 1 + ((i + 0.5) / nrow) * 13 }
-        textAnchor="end"
-        fontSize={ 0.7 }
-      > {val}
-      </text>
-    );
-  });
-
-  const xlabLines = schema[key1]["labels"].map( (val, i) => {
-    if (val === "") return(null);
-
-    return(
-      <line
-        key={ i }
-        x1={ 8 + (i / ncol) * 39 }
-        y1={ 14 }
-        x2={ 8 + (i / ncol) * 39 }
-        y2={ 3 }
-        style={{
-          "stroke": "rgb(0,0,0)",
-          "strokeWidth": "0.05",
-          "strokeLinecap": "round",
-          "strokeDasharray": "0.2,0.2"
-        }}
+        x={ i - 1.5 }
+        y={ 0.2 }
+        width={ 1 }
+        height={ 0.8 }
+        fill={ fcolor }
+        fillOpacity={ fopacity }
+        stroke={ "black" }
+        strokeWidth={ swidth }
       />
     );
   });
 
+  const defaultValue = [0, 24];
+  const onRangeChange = (e) => {
+    props.modifyFilter("d", intrange(e[0] + 1, e[1] + 1));
+  };
+  const onAfterChange = null;
+  const marks = 
+  { 
+    0: "2022/01",
+    3: "2022/04",
+    6: "2022/07",
+    9: "2022/10",
+    12: "2023/01",
+    15: "2023/04",
+    18: "2023/07",
+    21: "2023/10",
+    24: "2024/01"
+  };
+
   return(
     <div id="panel-timeline">
       <svg
-        viewBox="0 0 50 18"
+        viewBox="0 0 24 1"
         preserveAspectRatio="none"
         id="timeline"
         xmlns="http://www.w3.org/2000/svg"
@@ -102,17 +63,36 @@ function Timeline(props) {
         <g id="panel-timeline-boxes">
           { boxes }
         </g>
-        { xlabs }
-        { ylabs }
-        { xlabLines }
-        <line
-          x1="8"
-          y1="14"
-          x2="47"
-          y2="14"
-          style={{ "stroke": "rgb(0,0,0)", "strokeWidth": "0.2"}}
-        />
       </svg>
+      <div className="slider-container">
+        <Slider
+          range
+          allowCross={true}
+          onChange={ onRangeChange } 
+          defaultValue={ defaultValue }
+          min={0}
+          max={24}
+          marks={ marks }
+          onAfterChange={onAfterChange}
+          tipFormatter={(value) => `${value}!`}
+          trackStyle={[{
+            backgroundColor: "black",
+          }]}
+          handleStyle={[
+            {
+              borderColor: "black",
+              backgroundColor: "#F2BE00",
+            },
+            {
+              borderColor: "black",
+              backgroundColor: "#F2BE00",
+            },
+          ]} 
+          activeDotStyle={{
+            borderColor: "black",
+          }}
+        />
+      </div>
     </div>
   );
 }
@@ -120,8 +100,7 @@ function Timeline(props) {
 Timeline.propTypes = {
   schema: PropTypes.object.isRequired,
   tagId: PropTypes.number.isRequired,
-  tlColKey: PropTypes.string.isRequired,
-  tlRowKey: PropTypes.string.isRequired,
+  timeKey: PropTypes.string.isRequired,
   tlCounts: PropTypes.array.isRequired,
   modifyState: PropTypes.func.isRequired,
   modifyFilter: PropTypes.func.isRequired
