@@ -72,7 +72,7 @@ function Search(props) {
         className="react-select-container react-select-container-creator"
         classNamePrefix="react-select"
         isClearable={ true }
-        placeholder={props.lang === "en" ? "Select Creator" : "иберіть творця"}
+        placeholder={props.lang === "en" ? "Select Photographer" : "Виберіть фотографа"}
         onChange={(e) => props.modifyFilter(props.creatorKey, e ? [e.value] : null)}
       />
       <span id="search">

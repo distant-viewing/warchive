@@ -1,9 +1,10 @@
 #panel-timeline {
   position: absolute;
-  height: var(--timeline-height);
+  height: calc(var(--timeline-height) - 1px) ;
   width: var(--timeline-width);
-  top: calc(var(--header-height) + var(--map-height));
+  top: calc(var(--header-height) + var(--map-height) + 1px);
   left: var(--app-offset-left);
+  display: inline-block;
   outline: 1px solid black;
   background: var(--color-background);
 }

@@ -2,9 +2,10 @@
   position: absolute;
   height: var(--results-height);
   width: var(--results-width);
-  top: calc(var(--header-height) + var(--search-height) + var(--panel-offset-top));
+  top: calc(var(--header-height) + var(--panel-offset-top));
   left: calc(var(--panel-offset-left) + var(--app-offset-left));
   outline: 1px solid black;
+  display: inline-block;
   background: var(--color-background);
 }
 

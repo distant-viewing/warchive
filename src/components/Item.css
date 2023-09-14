@@ -31,6 +31,7 @@
 }
 
 .large-image {
+  padding-top: 16px;
   max-width: 100%;
   max-height: min(calc(var(--map-width) * 0.5), 350px);
   display: block;

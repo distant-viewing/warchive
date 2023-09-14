@@ -83,7 +83,7 @@ class InteractiveViz extends React.Component {
         <div id="top-bar">
         </div>
         <div id="header">
-          <a href="/" className="logo-wrapper">
+          <a href="https://distantviewing.org/uawarchive" className="logo-wrapper">
             <img
               src="63bedaaa7558520164484a7d_logo.svg"
               loading="lazy"
@@ -166,7 +166,7 @@ class InteractiveViz extends React.Component {
             <b> { this.state.lang === "en" ? "Warning:" : "Попередження:" } </b>
             { this.state.lang === "en" ?
               "Some of the images are graphic in nature and might be disturbing to some viewers." :
-              "Деякі зображення мають графічний характер і можуть викликати занепокоєння у деяких глядачів"}
+              "Увага! Деякі зображення містять сцени насильства, жорстокості та смерті, які можуть травмувати."}
           </span>
         </div>
       </div>
